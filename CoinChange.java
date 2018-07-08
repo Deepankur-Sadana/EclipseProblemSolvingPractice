@@ -7,7 +7,7 @@ public class CoinChange {
 
 	static void changeCoin() {
 
-		changeCoin(new int[] { 1, 2, 3 }, 4);
+		changeCoin(new int[] { 1, 2, 3 }, 3);
 	}
 
 	static void changeCoin(int[] coins, int sum) {
@@ -24,7 +24,7 @@ public class CoinChange {
 				//
 				dp[i][curSum] = curSum < coins[i] ?
 						dp[i - 1][curSum] :
-							dp[i - 1][sum] + dp[i][curSum - coins[i]];
+							dp[i - 1][curSum] + dp[i][curSum - coins[i]];					
 			}
 
 		}

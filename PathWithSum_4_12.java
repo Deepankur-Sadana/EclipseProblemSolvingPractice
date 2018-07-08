@@ -39,7 +39,7 @@ public class PathWithSum_4_12 {
 			if (pre != null) {
 				for (int n : pre) {
 					String b = " ";
-					b += n+1;
+					b += n + 1;
 					b += " ";
 					System.out.println("existes with " + b + " .. till " + i);
 				}
@@ -68,17 +68,83 @@ public class PathWithSum_4_12 {
 			System.out.println("No Such Sub Array Exists!");
 	}
 
+	// root non null
 	void traverse(Node root, ArrayList<Integer> visited) {
-		if (root == null && visited.size() > 0) {
-			int[] intArray = new int[visited.size()];
-			for (int i = 0; i < intArray.length; i++) {
-				intArray[i] = visited.get(i);
+		// if (root == null) {
+		// return;
+		// } else
+
+		if (root.left == null && root.right == null) {
+			// process
+			subArrayExistsWithGivenSum(build(visited), 6);
+
+		} else {// either left or right is null
+
+			visited.add(root.data);
+
+			if (root.left != null) {
+				ArrayList<Integer> l1 = new ArrayList<Integer>(visited);
+				l1.addAll(visited);
+				visited.add(root.left.data);
+				traverse(root.left, l1);
+			} else if (root.right != null) {
+				ArrayList<Integer> l2 = new ArrayList<Integer>(visited);
+				l2.addAll(visited);
+				traverse(root.right, l2);
 			}
-			return;
+
 		}
 
-		traverse(root.left, new ArrayList<Integer>(visited));
-		traverse(root.right, new ArrayList<Integer>(visited));
 	}
 
+	int[] build(ArrayList<Integer> list) {
+		int[] arr = new int[list.size()];
+		int c = 0;
+		for (int i : list) {
+			arr[c] = i;
+			++c;
+		}
+
+		return arr;
+	}
+
+	interface A {
+		int f();
+	}
+
+	interface B {
+		int f();
+	}
+
+	class Test implements A, B {
+		void maian(String... args) {
+
+		}
+
+		@Override
+		public int f() { // from which interface A or B
+			return 0;
+		}
+	}
+	
+	public interface InterfaceA {
+		  public void print();
+		}
+
+
+		public interface InterfaceB {
+		  public void print();
+		}
+
+		public class ClassAB implements InterfaceA, InterfaceB {
+		  public void print()
+		  {
+		    System.out.println("Inside InterfaceA");
+		  }
+		  public void printf()
+		  {
+		    System.out.println("Inside InterfaceB");
+		    
+		  }
+		}
 }
