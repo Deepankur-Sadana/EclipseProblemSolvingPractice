@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class PathWithSum_4_12 {
@@ -11,54 +13,72 @@ public class PathWithSum_4_12 {
 	// (traveling only from parent nodes to child nodes).
 	// Hints:#6, #14, #52, #68, #77, #87, #94, #103, #108, #115
 
-
-
 	class Node {
 		Node left, right;
-		int value;
+		int data;
 	}
-	
-	
-	  // Returns true if arr[] has a subarray with sero sum
-    static Boolean subArrayExists(int arr[])
-    {
-        // Creates an empty hashMap hM
-        HashMap<Integer, Integer> hM = 
-                        new HashMap<Integer, Integer>();
-         
-        // Initialize sum of elements
-        int sum = 0;     
-         
-        // Traverse through the given array
-        for (int i = 0; i < arr.length; i++)
-        { 
-            // Add current element to sum
-            sum += arr[i];
-             
-            // Return true in following cases
-            // a) Current element is 0
-            // b) sum of elements from 0 to i is 0
-            // c) sum is already present in hash map
-            if (arr[i] == 0 || sum == 0 || hM.get(sum) != null)                         
-                return true;
-             
-            // Add sum to hash map
-            hM.put(sum, i);
-        } 
-         
-        // We reach here only when there is
-        // no subarray with 0 sum
-        return false;
-    }     
-     
-    // driver code
-    public static void main(String arg[])
-    {
-        int arr[] = {-3, 2, 3, 1, 6};
-        if (subArrayExists(arr))
-            System.out.println("Found a subarray with 0 sum");
-        else
-            System.out.println("No Such Sub Array Exists!");         
-    }     
+
+	// Returns true if arr[] has a subarray with sero sum
+	static int subArrayExistsWithGivenSum(int arr[], int k) {
+		// Creates an empty hashMap hM
+		HashMap<Integer, ArrayList<Integer>> hM = new HashMap<Integer, ArrayList<Integer>>();
+
+		int count = 0;
+		// Initialize sum of elements
+		int sum = 0;
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(-1);
+		hM.put(0, list);
+
+		// Traverse through the given array
+		for (int i = 0; i < arr.length; i++) {
+			// Add current element to sum
+			sum += arr[i];
+
+			ArrayList<Integer> pre = hM.get(sum - k);
+			if (pre != null) {
+				for (int n : pre) {
+					String b = " ";
+					b += n+1;
+					b += " ";
+					System.out.println("existes with " + b + " .. till " + i);
+				}
+			}
+
+			ArrayList<Integer> l = hM.get(sum);
+			if (l != null)
+				l.add(i);
+			else {
+				ArrayList<Integer> l1 = new ArrayList<Integer>();
+				l1.add(i);
+				hM.put(sum, l1);
+			}
+
+		}
+		return count;
+	}
+
+	// driver code
+	public static void main(String arg[]) {
+		int arr[] = { 1, 2, 4, -1, 3, 5, 1 };
+		int c = subArrayExistsWithGivenSum(arr, 6);
+		if (c != 0)
+			System.out.println("Found " + c);
+		else
+			System.out.println("No Such Sub Array Exists!");
+	}
+
+	void traverse(Node root, ArrayList<Integer> visited) {
+		if (root == null && visited.size() > 0) {
+			int[] intArray = new int[visited.size()];
+			for (int i = 0; i < intArray.length; i++) {
+				intArray[i] = visited.get(i);
+			}
+			return;
+		}
+
+		traverse(root.left, new ArrayList<Integer>(visited));
+		traverse(root.right, new ArrayList<Integer>(visited));
+	}
 
 }

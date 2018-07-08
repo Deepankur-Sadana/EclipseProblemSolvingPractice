@@ -378,34 +378,52 @@ public class RotOrange {
 	}
 
 	public static void main(String[] args) {
-		changeCoin();
+		subarray();
 	}
 
-	static void changeCoin() {
+	// Find subarray with given sum
 
-		changeCoin(new int[] { 1, 2, 3 }, 4);
+	static void subarray() {
+
 	}
 
-	static void changeCoin(int[] coins, int sum) {
-		int dp[][] = new int[coins.length][sum + 1];
+	static void subarray(int arr[], int k) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int sum = 0;
+		map.put(0, -1);
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			Integer get = map.get(sum);
+			if((sum-))
+			
+			if (get != null) {
 
-		int firstCoin = coins[0];
-		for (int i = 0; i < dp[0].length; i++) {
-			dp[0][i] = i < firstCoin ? 1 : dp[0][i - firstCoin];
+			} else
+				map.put(sum, i);
 
 		}
 
-		for (int i = 1; i < coins.length; i++) {
-			for (int curSum = 0; curSum <= sum; curSum++) {
-				//
-				dp[i][curSum] = curSum < coins[i] ?
-						dp[i - 1][curSum] :
-							dp[i - 1][sum] + dp[i][curSum - coins[i]+1];
-			}
-
-		}
-		Utils.pint(dp);
-
 	}
 
+	// English Int: Given any integer, print an English phrase that describes the
+	// integer (e.g., "One Thousand,
+	// Two Hundred Thirty Four").
+
+	void descibe(int n) {
+		String buffer="";
+		if(n / 100 > 1)
+			buffer += 
+	}
+
+	void getones(int i) {
+
+		String[] ones = new String[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+		String[] teens = new String[] { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifthteen", "eighteen",
+				"nineteen" };
+
+		String[] tens = new String[] { "", "", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eigty",
+				"ninety" };
+		String powers[] = { "Hundred", "Thousand", "Million", "Billon", "Trillon" };
+
+	}
 }
