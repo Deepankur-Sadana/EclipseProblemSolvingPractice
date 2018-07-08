@@ -378,7 +378,7 @@ public class RotOrange {
 	}
 
 	public static void main(String[] args) {
-		subarray();
+		getSubSort();
 	}
 
 	// Find subarray with given sum
@@ -426,4 +426,62 @@ public class RotOrange {
 		String powers[] = { "Hundred", "Thousand", "Million", "Billon", "Trillon" };
 
 	}
+
+	// Sub Sort: Given an array of integers, write a method to find indices m and n
+	// such that if you sorted
+	// elements m through n, the entire array would be sorted.
+	// Minimize n - m (that is, find the smallest
+	// such sequence).
+	// EXAMPLE
+	// lnput:1, 2, 4, 7, 10, 11,10, 7, 12, 6, 7, 17,16, 18, 19
+	// Output: (3, 9)
+
+	static void getSubSort() {
+		int arr []= new int[] {10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
+		getSubSort(arr);
+		}
+
+	static void getSubSort(int[] arr) {
+		int min = 0, max = 0;
+		boolean flag = false;
+		for (int i = 0; i < arr.length; i++) {
+			if (!flag && i != 0 && arr[i - 1] > arr[i]) {
+				flag = true;
+				min = arr[i];
+			}
+			if (flag)
+				min = min > arr[i] ? arr[i] : min;
+		}
+
+		flag = false;
+		for (int i = arr.length - 1; i >= 0; i--) {
+			if (!flag && i != arr.length - 1 && arr[i + 1] < arr[i]) {
+				flag = true;
+				max = arr[i];
+			}
+			if (flag)
+				max = max > arr[i] ? max : arr[i];
+		}
+
+		int start = 0, end = 0;
+		// boolean foundStart = false , foundEnd = false;
+
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > min) {
+				start = i;
+				break;
+			}
+		}
+
+		for (int i = arr.length - 1; i >= 0; i--) {
+			if (arr[i] < max) {
+				end = i;
+				break;
+			}
+		}
+
+		System.out.println("start " + start + " end " + end);
+
+	}
+
 }
