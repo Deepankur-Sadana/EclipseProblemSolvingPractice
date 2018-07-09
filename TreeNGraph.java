@@ -3,7 +3,7 @@ import java.util.*;
 
 public class TreeNGraph {
 
-	public static void main(String[] args) {
+	public static void mainold(String[] args) {
 		// TODO Auto-generated method stub
 		TreeNGraph t = new TreeNGraph();
 		// t.makeTTheGraph();
@@ -365,12 +365,19 @@ public class TreeNGraph {
 		ArrayList<Node> list = new ArrayList<>();
 		for (Node n : arr)
 			list.add(n);
-	
+
 		if (!list.contains(delete))
 			return arr;
 		list.remove(delete);
 		return list.toArray(new Node[list.size()]);
 
 	}
+
+
+
+
+
+
+
 
 }
