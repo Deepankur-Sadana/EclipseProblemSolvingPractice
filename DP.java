@@ -3,15 +3,7 @@ import java.util.*;
 
 public class DP {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
-
-	// child and steps
-	private void countWays(int numerOfSteps, int[] steps) {
-
-	}
 
 	ArrayList<Point> lockedTiles = new ArrayList<>();
 
@@ -126,8 +118,6 @@ public class DP {
 		else
 			System.out.println("Element found at index " + result);
 	}
-	
-	
 
 	int binarySearch(int arr[], int l, int r) {
 		if (r >= l) {
@@ -151,6 +141,43 @@ public class DP {
 		// We reach here when element is not present
 		// in array
 		return -1;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DP d = new DP();
+		System.out.println("max " );
+		d.printSlidinWindow(new int [] {1, 2, 3, 1, 4, 5, 2, 3, 6}
+		, 3);
+
+	}
+
+	void printSlidinWindow(int[] arr, int window) {
+
+		if (window > arr.length)
+			return; // base case
+		BinarySearchTree tree = new BinarySearchTree();
+
+		for (int i = 0; i < arr.length; i++) {
+			if (i < window) {
+				tree.insert(arr[i]);
+				if(i==window-1)
+					System.out.println("max ...." + tree.getMax());
+			} else {
+				
+				int remove = arr[i- (window )];
+				tree.delete(remove);
+				
+				tree.insert(arr[i]);
+				
+				
+				int max = tree.getMax();
+				System.out.println("max " + max);
+
+			}
+
+		}
+
 	}
 
 }

@@ -50,25 +50,18 @@ public class TeeeGrraph2 {
 
 		n20.left = new Node(8);
 		n20.left.left = new Node(5);
-		
 
 		n20.left.right = new Node(3);
 		n20.left.right.left = new Node(10);
-		n20.left.right.right= new Node(14);
+		n20.left.right.right = new Node(14);
 
 		return n20;
 	}
 
 	/**
 	 * 
-	 *                20
-                    /    \
-                  8       22
-                /   \      \
-              5      3      25
-                    / \      
-                  10    14
-
+	 * 20 / \ 8 22 / \ \ 5 3 25 / \ 10 14
+	 * 
 	 * @param args
 	 */
 
@@ -92,7 +85,7 @@ public class TeeeGrraph2 {
 			return;
 		traverse(root.left, level + 1, horizontalDistance - 1);
 		System.out.println("" + root.data);
-		addNodeToMap(root,level,horizontalDistance);
+		addNodeToMap(root, level, horizontalDistance);
 		traverse(root.right, level + 1, horizontalDistance + 1);
 	}
 
@@ -105,12 +98,50 @@ public class TeeeGrraph2 {
 
 	void printBottomOrder() {
 		for (Map.Entry<Integer, TreeMap<Integer, Integer>> column : map.entrySet()) {
-			for(Map.Entry<Integer, Integer> element:column.getValue().entrySet()) {
-				System.out.println("---"+element.getValue());
+			for (Map.Entry<Integer, Integer> element : column.getValue().entrySet()) {
+				System.out.println("---" + element.getValue());
 				break;
 			}
 
 		}
 
 	}
+
+	void firstCommonAncestor(Node n, Node m) {
+
+	}
+
+	Node findData(Node root, int n, int m) {
+		if (root == null)
+			return null;
+		
+		if (root.data == n || root.data == m) {
+
+			if (findData(root.left, root.data == n ? m : n) != null)
+				return root;
+			else return root;
+
+		}
+		return null;
+	}
+
+	Node findData(Node root, int n) {
+		if (root == null)
+			return null;
+		if (root.data == n) {
+			return root;
+		}
+		
+		Node node = findData(root.left, n);
+		if (node != null)
+			return node;
+		else
+			node = findData(root.right, n);
+
+		if (node != null)
+			return node;
+
+		return null;
+	}
+
 }
