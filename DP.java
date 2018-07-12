@@ -3,8 +3,6 @@ import java.util.*;
 
 public class DP {
 
-
-
 	ArrayList<Point> lockedTiles = new ArrayList<>();
 
 	final static int HEIGHT = 4, WIDTH = 4;
@@ -146,9 +144,7 @@ public class DP {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		DP d = new DP();
-		System.out.println("max " );
-		d.printSlidinWindow(new int [] {1, 2, 3, 1, 4, 5, 2, 3, 6}
-		, 3);
+		d.printSlidinWindowDequeu(new int[] { 8, 5, 10, 7, 9, 4, 15, 12, 90, 13 }, 3);
 
 	}
 
@@ -158,26 +154,64 @@ public class DP {
 			return; // base case
 		BinarySearchTree tree = new BinarySearchTree();
 
+		Deque<Integer> q = new ArrayDeque<>();
+
 		for (int i = 0; i < arr.length; i++) {
 			if (i < window) {
 				tree.insert(arr[i]);
-				if(i==window-1)
+				if (i == window - 1)
 					System.out.println("max ...." + tree.getMax());
 			} else {
-				
-				int remove = arr[i- (window )];
+
+				int remove = arr[i - (window)];
 				tree.delete(remove);
-				
+
 				tree.insert(arr[i]);
-				
-				
 				int max = tree.getMax();
 				System.out.println("max " + max);
 
 			}
-
 		}
+	}
 
+	void printSlidinWindowDequeu(int[] arr, int window) {
+
+		if (window > arr.length)
+			return; // base case
+
+		Deque<Integer> q = new ArrayDeque<>();
+
+		for (int i = 0; i < arr.length; i++) {
+			if (i < window) {
+				if (q.isEmpty())
+					q.add(i);
+				else {
+					while (!q.isEmpty() && arr[i] >= arr[q.getLast()]) {
+						q.removeLast();
+					}
+					q.add(i);
+				}
+				System.out.println(Arrays.asList(q));
+				if (i == window - 1)
+					System.out.println("max .... " + arr[q.getFirst()]);
+			} else {
+//				System.out.println("first  .... " + q.getFirst() +"...i... "+i);
+//				System.out.println("win .... " +(i - window ));
+
+				if (q.getFirst() == i - window )
+					q.removeFirst();
+					
+				while (!q.isEmpty() && arr[i] >= arr[q.getLast()]) {
+					q.removeLast();
+				}
+				q.add(i);
+				System.out.println("max ...." + arr[q.getFirst()]);
+//				System.out.println(Arrays.asList(q));
+
+
+			}
+		}
+		
 	}
 
 }
