@@ -141,11 +141,8 @@ public class DP {
 		return -1;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		DP d = new DP();
-		d.printSlidinWindowDequeu(new int[] { 8, 5, 10, 7, 9, 4, 15, 12, 90, 13 }, 3);
-
+	void printSlidinWindow() {
+		printSlidinWindowDequeu(new int[] { 8, 5, 10, 7, 9, 4, 15, 12, 90, 13 }, 3);
 	}
 
 	void printSlidinWindow(int[] arr, int window) {
@@ -195,23 +192,58 @@ public class DP {
 				if (i == window - 1)
 					System.out.println("max .... " + arr[q.getFirst()]);
 			} else {
-//				System.out.println("first  .... " + q.getFirst() +"...i... "+i);
-//				System.out.println("win .... " +(i - window ));
-
-				if (q.getFirst() == i - window )
+				if (q.getFirst() == i - window)
 					q.removeFirst();
-					
+
 				while (!q.isEmpty() && arr[i] >= arr[q.getLast()]) {
 					q.removeLast();
 				}
 				q.add(i);
 				System.out.println("max ...." + arr[q.getFirst()]);
-//				System.out.println(Arrays.asList(q));
-
-
 			}
 		}
-		
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DP d = new DP();
+		d.printLCS();
+
+	}
+
+	void printLCS() {
+		printLCS("azced", "abcdef");
+
+	}
+
+	void printLCS(String one, String two) {
+		int dp[][] = new int[one.length() + 1][two.length() + 1];
+
+		for (int i = 0; i < dp[0].length; i++)
+			dp[0][i] = i;
+
+		for (int i = 0; i < dp.length; i++)
+			dp[i][0] = i;
+
+		Utils.pint(dp);
+		for (int r = 1; r < dp.length ; r++) {
+			for (int c = 1; c < dp[0].length; c++) {
+				Utils.pint(dp);
+				System.out.println(".. " + r + " " + c+ " ");
+				if (one.charAt(r - 1) == two.charAt(c - 1)) {
+					dp[r][c] = dp[r - 1][c - 1];
+				} else {
+					dp[r][c] = getMinimum(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) + 1;
+				}
+			}
+		}
+		Utils.pint(dp);
+
+	}
+
+	int getMinimum(int a, int b, int c) {
+		return Math.min(Math.min(a, b), c);
 	}
 
 }
