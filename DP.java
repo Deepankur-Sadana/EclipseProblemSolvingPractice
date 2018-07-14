@@ -205,7 +205,7 @@ public class DP {
 
 	}
 
-	public static void main(String[] args) {
+	public static void mainold(String[] args) {
 		// TODO Auto-generated method stub
 		DP d = new DP();
 		d.printLCS();
@@ -213,11 +213,11 @@ public class DP {
 	}
 
 	void printLCS() {
-		printLCS("azced", "abcdef");
+		knapster01();
 
 	}
 
-	void printLCS(String one, String two) {
+	void printEditDistance(String one, String two) {
 		int dp[][] = new int[one.length() + 1][two.length() + 1];
 
 		for (int i = 0; i < dp[0].length; i++)
@@ -227,10 +227,9 @@ public class DP {
 			dp[i][0] = i;
 
 		Utils.pint(dp);
-		for (int r = 1; r < dp.length ; r++) {
+		for (int r = 1; r < dp.length; r++) {
 			for (int c = 1; c < dp[0].length; c++) {
-				Utils.pint(dp);
-				System.out.println(".. " + r + " " + c+ " ");
+				System.out.println(".. " + r + " " + c + " ");
 				if (one.charAt(r - 1) == two.charAt(c - 1)) {
 					dp[r][c] = dp[r - 1][c - 1];
 				} else {
@@ -239,11 +238,58 @@ public class DP {
 			}
 		}
 		Utils.pint(dp);
-
 	}
 
 	int getMinimum(int a, int b, int c) {
 		return Math.min(Math.min(a, b), c);
 	}
 
+	void knapster01() {
+		knapster01( new int[] { 1, 2, 3, 5 },new int[] { 2, 5, 8, 15 }, 5);
+	}
+
+	void knapster01(int[] weight, int[] value, int loot) {
+		if (weight.length != value.length)
+			return;// bad input
+		int items = value.length;
+		int dp[][] = new int[items][loot + 1];
+
+		for (int r = 0; r < items; r++) {
+			for (int c = 1; c < loot; c++) {
+				if (loot < weight[r]) {
+					if (r != 0)
+						dp[r][c] = dp[r - 1][c];
+					else
+						dp[r][c] = 0;
+				} else {
+					System.out.println("..."+(c )+".. r.."+r);
+					dp[r][c] = dp[r][c - weight[r]] + value[r];
+				}
+
+			}
+		}
+		Utils.pint(dp);
+	}
+	   /* Function to get no of set 
+    bits in binary representation 
+    of positive integer n */
+    static int countSetBits(int n)
+    {
+//    	1001
+        int count = 0;
+        while (n > 0)
+        {
+        	System.out.println(n);
+            count += n & 1;
+            n >>= 1;
+        }
+        return count;
+    }
+ 
+    // driver program
+    public static void main(String args[])
+    {
+        int i = 9;
+        System.out.println(countSetBits(i));
+    }
 }
