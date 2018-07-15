@@ -205,12 +205,7 @@ public class DP {
 
 	}
 
-	public static void mainold(String[] args) {
-		// TODO Auto-generated method stub
-		DP d = new DP();
-		d.printLCS();
 
-	}
 
 	void printLCS() {
 		knapster01();
@@ -245,51 +240,114 @@ public class DP {
 	}
 
 	void knapster01() {
-		knapster01( new int[] { 1, 2, 3, 5 },new int[] { 2, 5, 8, 15 }, 5);
+		knapster01(new int[] { 1, 2, 3, 5 }, new int[] { 2, 5, 8, 15 }, 6);
+
+		int val[] = { 60, 100, 120 };
+		int wt[] = { 10, 20, 30 };
+		int W = 50;
+
+		// knapster01(wt, val, W);
 	}
 
 	void knapster01(int[] weight, int[] value, int loot) {
 		if (weight.length != value.length)
 			return;// bad input
+
 		int items = value.length;
 		int dp[][] = new int[items][loot + 1];
 
-		for (int r = 0; r < items; r++) {
-			for (int c = 1; c < loot; c++) {
-				if (loot < weight[r]) {
-					if (r != 0)
-						dp[r][c] = dp[r - 1][c];
-					else
-						dp[r][c] = 0;
-				} else {
-					System.out.println("..."+(c )+".. r.."+r);
-					dp[r][c] = dp[r][c - weight[r]] + value[r];
-				}
+		for (int i = 0; i <= loot; i++) {
+			dp[0][i] = i < weight[0] ? 0 : value[0];
+		}
+
+		for (int r = 1; r < items; r++) {
+			for (int c = 1; c <= loot; c++) {
+				dp[r][c] = c < weight[r] ? dp[r - 1][c] : dp[r][c - weight[r]] + value[r];
 
 			}
 		}
 		Utils.pint(dp);
 	}
-	   /* Function to get no of set 
-    bits in binary representation 
-    of positive integer n */
-    static int countSetBits(int n)
-    {
-//    	1001
-        int count = 0;
-        while (n > 0)
-        {
-        	System.out.println(n);
-            count += n & 1;
-            n >>= 1;
-        }
-        return count;
-    }
- 
-    // driver program
-    public static void main(String args[])
-    {
-        int i = 9;
-        System.out.println(countSetBits(i));
-    }
+
+	class Job {
+		String name;
+		int start, end, weight;
+		int combinedweight;
+
+		Job(int start, int end, int weight) {
+			this.start = start;
+			this.end = end;
+			this.weight = weight;
+			this.combinedweight = weight;
+		}
+
+		public String toString() {
+			return name + " start " + start + " end " + end+" combined "+combinedweight;
+		}
+	}
+
+	public static void main(String[] args) {
+		DP d = new DP();
+		d.weightedJobScheduling();
+		
+
+	}
+	void weightedJobScheduling() {
+		Job jobs[] = new Job[6];
+		jobs[0] = createJob(1, 3, 5);
+		jobs[1] = createJob(2, 5, 6);
+		jobs[2] = createJob(4, 6, 5);
+		jobs[3] = createJob(6, 7, 4);
+		jobs[4] = createJob(5, 8, 11);
+		jobs[5] = createJob(7, 9, 2);
+		weightedJobScheduling(jobs);
+		printJobs(jobs);
+	}
+
+	Job createJob(int start, int end, int weight) {
+		return new Job(start, end, weight);
+	}
+
+	void weightedJobScheduling(Job[] jobs) {
+		int i = 1, j = 0;
+
+		while (i != jobs.length) {
+			
+			j = 0;
+			while (j < i) {
+				Job first = jobs[j];
+				Job second = jobs[i];
+				if (!doesOverLap(first, second)) {
+					updateMaxWeight(first, second);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+
+	// sorted based on end time
+	boolean doesOverLap(Job first, Job second) {
+	
+
+		if (first.end > second.start)
+			return true;
+		else
+			return false;
+	}
+
+	void updateMaxWeight(Job first, Job second) {
+	
+
+		int proposedW = first.combinedweight + second.weight;
+		if (second.combinedweight < proposedW)
+			second.combinedweight = proposedW;
+	}
+	
+	void printJobs(Job[] jobs) {
+		for(Job job:jobs)
+			System.out.println(job);
+		
+	}
+
 }
