@@ -48,21 +48,16 @@ public class Greedy {
 	}
 
 	void printMax() {
-		
+
 		int max = 0;
 		int running = 0;
-		
+
 		for (Map.Entry<Integer, Integer> entry : s.entrySet()) {
-//			max = entry.getValue() > 0 ? entry.getValue() : max;
 			running += entry.getValue();
-			
 			if (running > max)
 				max = running;
-			
-			System.out.println(" running... \t" + "\t" + running);
 		}
 		System.out.println(" max... " + max);
-
 	}
 
 	void changeCount(int timeStamp, boolean arr) {
@@ -74,5 +69,12 @@ public class Greedy {
 		s.put(timeStamp, arr ? count + 1 : count - 1);
 
 	}
+
+	// Given n balloons, indexed from 0 to n-1. Each balloon is painted with a
+	// number on it represented by array nums.
+	// You are asked to burst all the balloons. If the you burst balloon i you will
+	// get nums[left] * nums[i] * nums[right] coins.
+	// Here left and right are adjacent indices of i. After the burst, the left and
+	// right then becomes adjacent.
 
 }

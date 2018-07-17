@@ -205,8 +205,6 @@ public class DP {
 
 	}
 
-
-
 	void printLCS() {
 		knapster01();
 
@@ -282,16 +280,16 @@ public class DP {
 		}
 
 		public String toString() {
-			return name + " start " + start + " end " + end+" combined "+combinedweight;
+			return name + " start " + start + " end " + end + " combined " + combinedweight;
 		}
 	}
 
 	public static void main(String[] args) {
 		DP d = new DP();
 		d.weightedJobScheduling();
-		
 
 	}
+
 	void weightedJobScheduling() {
 		Job jobs[] = new Job[6];
 		jobs[0] = createJob(1, 3, 5);
@@ -302,6 +300,7 @@ public class DP {
 		jobs[5] = createJob(7, 9, 2);
 		weightedJobScheduling(jobs);
 		printJobs(jobs);
+		printMax(jobs);
 	}
 
 	Job createJob(int start, int end, int weight) {
@@ -312,7 +311,7 @@ public class DP {
 		int i = 1, j = 0;
 
 		while (i != jobs.length) {
-			
+
 			j = 0;
 			while (j < i) {
 				Job first = jobs[j];
@@ -328,7 +327,6 @@ public class DP {
 
 	// sorted based on end time
 	boolean doesOverLap(Job first, Job second) {
-	
 
 		if (first.end > second.start)
 			return true;
@@ -337,17 +335,23 @@ public class DP {
 	}
 
 	void updateMaxWeight(Job first, Job second) {
-	
-
 		int proposedW = first.combinedweight + second.weight;
 		if (second.combinedweight < proposedW)
 			second.combinedweight = proposedW;
 	}
-	
-	void printJobs(Job[] jobs) {
-		for(Job job:jobs)
-			System.out.println(job);
+
+	void printMax(Job... jobs) {
+		int max = 0;
+		for (Job j : jobs)
+			if (j.combinedweight > max)
+				max = j.combinedweight;
 		
+		System.out.println("max..." +max);
+	}
+
+	void printJobs(Job[] jobs) {
+		for (Job job : jobs)
+			System.out.println(job);
 	}
 
 }
