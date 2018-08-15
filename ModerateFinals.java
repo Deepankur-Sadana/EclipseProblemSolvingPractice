@@ -6,18 +6,15 @@ public class ModerateFinals {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ModerateFinals m = new ModerateFinals();
-		m.getPondSizes(m.generatePond());
+//		m.getPondSizes(m.generatePond());
+		m.cellPhones();
 
 	}
 
 	int[][] generatePond() {
 		return new int[][] {
 
-				{ 0, 2, 1, 0 ,0},
-				{ 0, 1, 0, 1 ,0},
-				{ 1, 1, 0, 1 ,0}, 
-				{ 0, 0, 0, 0 ,0} 
-				};
+				{ 0, 2, 1, 0, 0 }, { 0, 1, 0, 1, 0 }, { 1, 1, 0, 1, 0 }, { 0, 0, 0, 0, 0 } };
 	}
 //	16.19 Pond Sizes: You
 
@@ -54,9 +51,9 @@ public class ModerateFinals {
 		// return +size traversed in all directions
 
 		Point[] points = getAllNeighbours(p);
-		int s = currentPondSize+1;
+		int s = currentPondSize + 1;
 		for (Point cp : points)
-			s += traverse(currentPondSize , marked, cp, area);
+			s += traverse(currentPondSize, marked, cp, area);
 		return s;
 
 	}
@@ -80,4 +77,59 @@ public class ModerateFinals {
 			this.c = c;
 		}
 	}
+
+	// 16.20 T9: cell phones
+
+	void cellPhones() {
+		HashMap<Integer, Set<Character>> map = new HashMap<>();
+		generateMapper(map, 2, 'a', 'b', 'c');
+		generateMapper(map, 3, 'd', 'e', 'f');
+		generateMapper(map, 4, 'g', 'h', 'i');
+		generateMapper(map, 5, 'j', 'k', 'l');
+		generateMapper(map, 6, 'm', 'n', 'o');
+		generateMapper(map, 7, 'p', 'q', 'r', 's');
+		generateMapper(map, 8, 't', 'u', 'v');
+		generateMapper(map, 9, 'w', 'x', 'y', 'z');
+
+		printCombinations("", 123, map);
+	}
+
+	void generateMapper(HashMap<Integer, Set<Character>> map, int num, Character... chars) {
+		Set<Character> l = new HashSet<>();
+		for (Character c : chars)
+			l.add(c);
+		map.put(num, l);
+	}
+
+	void printCombinations(String built, int rem, HashMap<Integer, Set<Character>> map) {
+		if (rem == 0) {
+			System.out.println("built " + built);
+			return;
+		}
+
+		int temp = rem;
+		int curr = -1 ;
+		while(temp /10 > 0) {
+			temp /= 10;
+		}
+		curr = temp;
+		
+		temp = rem;
+		int tens = 1;
+		while (temp/10 > 0) {
+			tens *=10;
+			temp /= 10;
+		}
+		
+		rem = rem/tens;
+
+		Set<Character> set = map.get(curr);
+		if (set != null)
+			for (Character c : set)
+				printCombinations(built + c, rem, map);
+		else
+			printCombinations(built, rem, map);
+
+	}
+
 }
