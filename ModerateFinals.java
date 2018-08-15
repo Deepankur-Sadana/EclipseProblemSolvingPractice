@@ -13,7 +13,11 @@ public class ModerateFinals {
 	int[][] generatePond() {
 		return new int[][] {
 
-				{ 0, 2, 1, 0 }, { 0, 1, 0, 1 }, { 1, 1, 0, 1 }, { 0, 1, 0, 1 } };
+				{ 0, 2, 1, 0 ,0},
+				{ 0, 1, 0, 1 ,0},
+				{ 1, 1, 0, 1 ,0}, 
+				{ 0, 0, 0, 0 ,0} 
+				};
 	}
 //	16.19 Pond Sizes: You
 
@@ -22,13 +26,14 @@ public class ModerateFinals {
 		ArrayList<Integer> ponds = new ArrayList<>();
 
 		boolean[][] marked = new boolean[area.length][area[0].length];
-		for (int i = 0; i < area.length; i++)
-			for (int j = 0; j < area[i].length; j++) {
+		Utils.pint(area);
+		for (int i = 0; i < area.length; i++) {
+			for (int j = 0; j < area[0].length; j++) {
 				int size = traverse(0, marked, new Point(i, j), area);
 				if (size > 0)
 					ponds.add(size);
 			}
-
+		}
 		for (int i : ponds)
 			System.out.println(" .... " + i);
 	}
@@ -41,7 +46,7 @@ public class ModerateFinals {
 		if (marked[p.r][p.c])
 			return 0;
 
-		if (area[p.r][p.c] == 0)
+		if (area[p.r][p.c] > 0)
 			return 0;
 
 		marked[p.r][p.c] = true;
@@ -49,9 +54,9 @@ public class ModerateFinals {
 		// return +size traversed in all directions
 
 		Point[] points = getAllNeighbours(p);
-		int s = currentPondSize;
+		int s = currentPondSize+1;
 		for (Point cp : points)
-			s += traverse(currentPondSize + 1, marked, cp, area);
+			s += traverse(currentPondSize , marked, cp, area);
 		return s;
 
 	}
