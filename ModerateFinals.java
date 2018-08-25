@@ -2,7 +2,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.*;
 
 public class ModerateFinals {
 
@@ -94,7 +95,12 @@ public class ModerateFinals {
 		generateMapper(map, 8, 't', 'u', 'v');
 		generateMapper(map, 9, 'w', 'x', 'y', 'z');
 
-		printCombinations("", 123, map);
+		LinkedHashSet<String> set = printCombinations(new LinkedHashSet<String>(), 8733, map);
+		System.out.println("built " + set.size());
+
+		for (String s : set) {
+			System.out.println("built " + s);
+		}
 	}
 
 	void generateMapper(HashMap<Integer, Set<Character>> map, int num, Character... chars) {
@@ -102,38 +108,55 @@ public class ModerateFinals {
 		for (Character c : chars)
 			l.add(c);
 		map.put(num, l);
+//		System.out.println("map " + map.size());
 	}
 
-	void printCombinations(String built, int rem, HashMap<Integer, Set<Character>> map) {
+	LinkedHashSet<String> printCombinations(LinkedHashSet<String> built, int rem,
+			HashMap<Integer, Set<Character>> map) {
 		if (rem == 0) {
-			System.out.println("built " + built);
-			return;
+//			System.out.println("built " + built);
+			return built;
 		}
 
-		int temp = rem;
-		int curr = -1 ;
-		while(temp /10 > 0) {
-			temp /= 10;
-		}
-		curr = temp;
-		
-		temp = rem;
-		int tens = 1;
-		while (temp/10 > 0) {
-			tens *=10;
-			temp /= 10;
-		}
-		
-		rem = rem/tens;
+		int digit = getLeftDigit(rem);
+		int right = removeLeftDigit(rem);
 
-		Set<Character> set = map.get(curr);
-		if (set != null)
-			for (Character c : set)
-				printCombinations(built + c, rem, map);
-		else
-			printCombinations(built, rem, map);
+		Set<Character> set = map.get(digit);
+		if (set != null) {
+			LinkedHashSet<String> newSet = new LinkedHashSet<String>();
+			if (!built.isEmpty()) {
+				for (Character c : set) {
+					for (String s : built) {
+						newSet.add(s + c);
+					}
+				}
+			} else {//built is null
+				for (Character c : set) {
+					newSet.add(String.valueOf(c));
+				}
+			}
+
+			built = newSet;
+			return printCombinations(newSet, right, map);
+		} else {
+			return printCombinations(built, right, map);
+		}
 
 	}
-	
+
+	// return 23456789 from 123456789
+	int removeLeftDigit(int x) {
+
+		if (x <= 10)
+			return 0;
+		int new_x = Integer.parseInt(Integer.toString(x).substring(1));
+
+		return new_x;
+	}
+
+	int getLeftDigit(int x) {
+		int new_x = Integer.parseInt(Integer.toString(x).substring(0, 1));
+		return new_x;
+	}
 
 }

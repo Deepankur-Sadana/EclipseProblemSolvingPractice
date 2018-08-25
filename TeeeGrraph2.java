@@ -144,4 +144,23 @@ public class TeeeGrraph2 {
 		return null;
 	}
 
+	 int diamterOfATree(Node root,int height) {
+		 
+		 if(root == null) return 0;
+		 
+		 int l = diamterOfATree(root.left,height+1);
+		 int r = diamterOfATree(root.right,height+1);
+		 
+		 return Math.max(l+r+1, height);
+	    	
+	    }
+	 
+	 int heightOfATree(Node root, int h) {
+		 if(root == null)return 0;
+		 
+		 int l = heightOfATree(root.left,h);
+		 int 
+	 }
+	 
+	 
 }
