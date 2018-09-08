@@ -11,22 +11,7 @@ public class TeeeGrraph2 {
 		}
 	}
 
-	static Node makeTree() {
-		Node n4 = new Node(4);
 
-		n4.left = new Node(5);
-		n4.right = new Node(2);
-		n4.right.left = new Node(3);
-		n4.right.right = new Node(1);
-
-		n4.right.left.left = new Node(6);
-		n4.right.left.right = new Node(7);
-		n4.right.left.right.right = new Node(8);
-		n4.right.left.right.left = new Node(12);
-
-		return n4;
-
-	}
 
 	void printLeftView(Node root, int level, HashMap<Integer, Boolean> map) {
 		if (root == null) {
@@ -65,12 +50,7 @@ public class TeeeGrraph2 {
 	 * @param args
 	 */
 
-	public static void main(String[] args) {
-		TeeeGrraph2 t = new TeeeGrraph2();
 
-		Node root = t.makeTree();
-		t.printBottomView();
-	}
 
 	void printBottomView() {
 		Node root = buildBottomViewTree();
@@ -159,8 +139,40 @@ public class TeeeGrraph2 {
 		 if(root == null)return 0;
 		 
 		 int l = heightOfATree(root.left,h);
-		 int 
+		 
 	 }
+		static Node makeTree() {
+			Node n4 = new Node(4);
+
+			n4.left = new Node(5);
+			n4.right = new Node(2);
+			n4.right.left = new Node(3);
+			n4.right.right = new Node(1);
+
+			n4.right.left.left = new Node(6);
+			n4.right.left.right = new Node(7);
+			n4.right.left.right.right = new Node(8);
+			n4.right.left.right.left = new Node(12);
+
+			return n4;
+
+		}
+	 
+		public static void main(String[] args) {
+			TeeeGrraph2 t = new TeeeGrraph2();
+
+			Node root = t.makeTree();
+			t.IOT(root);
+		}
+		
+		void IOT(Node root) {
+			if(root == null) return;
+			IOT(root.left);
+			System.out.println(root.data);
+			IOT(root.right);
+			
+		}
+		
 	 
 	 
 }
