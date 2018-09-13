@@ -191,6 +191,7 @@ public class TeeeGrraph2 {
 			POT(root.left);
 			POT(root.right);
 			System.out.println(root.data);
+			Collections.sort(list);
 			
 		}
 	 
