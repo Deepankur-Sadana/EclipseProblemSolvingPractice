@@ -161,9 +161,21 @@ public class TeeeGrraph2 {
 		public static void main(String[] args) {
 			TeeeGrraph2 t = new TeeeGrraph2();
 
-			Node root = t.makeTree();
-			t.IOT(root);
+			Node root = t.makeTreeNew();
+			t.POT(root);
 		}
+		   public static Node makeTreeNew()
+		    {
+		        Node root = new Node(1);
+		        
+		        root.left = new Node(2);
+		        root.right = new Node(3);
+		        root.left.left = new Node(4);
+		        root.left.right = new Node(5);
+		 
+		        return root;
+
+		    }
 		
 		void IOT(Node root) {
 			if(root == null) return;
@@ -173,6 +185,14 @@ public class TeeeGrraph2 {
 			
 		}
 		
+		void POT(Node root) {
+			if(root == null) return;
+			
+			POT(root.left);
+			POT(root.right);
+			System.out.println(root.data);
+			
+		}
 	 
 	 
 }
