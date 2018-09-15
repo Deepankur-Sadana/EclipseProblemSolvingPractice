@@ -1,19 +1,6 @@
+import java.util.ArrayList;
 
 public class RandomQuestions {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		RandomQuestions r = new RandomQuestions();
-
-//		Result s = r.maxSum(new int[][] {
-//            {1, 2, 3},
-//            {-3, -2 ,-1},
-//            {1,2, 3}
-//            });
-//		System.out.println(s.maxSum);
-		r.duplicate();
-
-	}
 
 //	Rand7 from Rands: Implement a method rand7() given rand5( ). That is, given a method that
 //	generates a random number between O and 4 (inclusive), write a method that generates a random
@@ -124,6 +111,74 @@ public class RandomQuestions {
 
 	void printArray(int[] arr) {
 		for (int i = 0; i < arr.length - 1; i++) {
+
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		RandomQuestions r = new RandomQuestions();
+
+//		Result s = r.maxSum(new int[][] {
+//            {1, 2, 3},
+//            {-3, -2 ,-1},
+//            {1,2, 3}
+//            });
+//		System.out.println(s.maxSum);
+//		r.Findsubarraywithgivensum();
+//		fibonacci(80);
+		mem();
+
+	}
+
+	public void Findsubarraywithgivensum() {
+
+		int arr[] = { 15, 2, 4, 8, 9, 5, 10, 23 };
+		int n = arr.length;
+		int sum = 23;
+		subArraySum(arr, n, sum);
+	}
+
+	int subArraySum(int arr[], int n, int sum) {
+		int curr_sum = arr[0], start = 0, i;
+
+		// Pick a starting point
+		for (i = 1; i <= n; i++) {
+			// If curr_sum exceeds the sum, then remove the starting elements
+			while (curr_sum > sum && start < i - 1) {
+				curr_sum = curr_sum - arr[start];
+				start++;
+			}
+
+			// If curr_sum becomes equal to sum, then return true
+			if (curr_sum == sum) {
+				int p = i - 1;
+				System.out.println("Sum found between indexes " + start + " and " + p);
+				return 1;
+			}
+
+			// Add this element to curr_sum
+			if (i < n)
+				curr_sum = curr_sum + arr[i];
+
+		}
+
+		System.out.println("No subarray found");
+		return 0;
+	}
+
+	public static int fibonacci(int number){ 
+		if(number == 1 || number == 2){ return 1; } 
+		System.out.println(number);
+		return fibonacci(number-1) + fibonacci(number -2); 
+	}
+
+	public static void mem() {
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		for(int i=0 ;i< 10000000;i++) {
+			System.out.println(i);
+			list.add(i);
 
 		}
 	}
