@@ -5,5 +5,10 @@ public class CareerCup {
 		// TODO Auto-generated method stub
 
 	}
+	
+	void topologicalSort() {
+		Node<String> type = new Node<>();
+		
+	}
 
 }
