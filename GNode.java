@@ -22,7 +22,7 @@ public class GNode<T> {
 		genNumber(123);
 
 	}
-	
+
 	private static void genNumber(final int N) {
 		int k = 0;
 		while (true) {
@@ -59,9 +59,28 @@ public class GNode<T> {
 			remainder = remainder / base;
 //			System.out.println(remainder);
 		}
-		while(!stack.isEmpty()){
+		while (!stack.isEmpty()) {
 			System.out.print(stack.pop());
 		}
 
+	}
+
+	void shuffleArray(int arr[]) {
+		for (int i = arr.length - 1; i >= 0; i--) {
+			int index = getRandomNumber(0, i);
+			swap(index, i, arr);
+		}
+	}
+
+	void swap(int l, int r, int[] arr) {
+		int temp = arr[l];
+		arr[l] = arr[r];
+		arr[r] = temp;
+	}
+
+	// lower inclusive
+	// upper inclusive
+	int getRandomNumber(int lower, int upper) {
+		return 0;
 	}
 }

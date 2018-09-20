@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class RandomQuestions {
 
@@ -167,20 +167,143 @@ public class RandomQuestions {
 		return 0;
 	}
 
-	public static int fibonacci(int number){ 
-		if(number == 1 || number == 2){ return 1; } 
+	public static int fibonacci(int number) {
+		if (number == 1 || number == 2) {
+			return 1;
+		}
 		System.out.println(number);
-		return fibonacci(number-1) + fibonacci(number -2); 
+		return fibonacci(number - 1) + fibonacci(number - 2);
 	}
 
 	public static void mem() {
 		ArrayList<Integer> list = new ArrayList<>();
-		
-		for(int i=0 ;i< 10000000;i++) {
+
+		for (int i = 0; i < 10000000; i++) {
 			System.out.println(i);
 			list.add(i);
 
 		}
 	}
+
+	public int findCelebrity(int arr[][]) {
+		Stack<Integer> stack = new Stack<>();
+		for (int i = 0; i < arr.length; i++)
+			stack.push(i);
+
+		while (!stack.isEmpty()) {
+			int A = stack.pop();
+			if (stack.isEmpty())// found celebrity as no one left to discart
+				return A;
+			int B = stack.pop();
+			int P = probalyCelebrity(A, B, arr);
+
+			if (stack.isEmpty())
+				return P;
+			else if (P == -1)
+				continue;
+			else
+				stack.push(P);
+		}
+		throw new IllegalArgumentException("invalid matrix");
+	}
+
+	int probalyCelebrity(int A, int B, int[][] arr) {
+		if (arr[A][B] == 0 && arr[B][A] == 0)
+			return -1;
+		else if (arr[A][B] == 0)
+			return A;
+		else if (arr[B][A] == 0)
+			return B;
+		else if (arr[A][B] == 1 && arr[B][A] == 1)// both know each other; must be friends
+			return -1;
+
+		return -1;// todo
+	}
+
+	public static int binarySearch(int[] a, int start, int end, int target) {
+		int middle = (start + end) / 2;
+		if (end < start) {
+			return -1;
+		}
+
+		if (target == a[middle]) {
+			return middle;
+		} else if (target < a[middle]) {
+			return binarySearch(a, start, middle - 1, target);
+		} else {
+			return binarySearch(a, middle + 1, end, target);
+		}
+	}
+
+	int bs(int l, int r, int n, int[] arr) {
+		if (l > r)
+			return -1;
+		int mid = l + r / 2;
+		if (arr[mid] == n)
+			return mid;
+		else if (arr[mid] > n) {
+			return bs(l, mid - 1, n, arr);
+		} else {
+			return bs(mid + 1, r, n, arr);
+		}
+
+	}
+
+	void sort(int l, int r, int[] arr) {
+		if (r - l == 1)
+			if (arr[l] < arr[r])
+				swap(arr, l, r);
+
+		int mid = getMidPoint(l, r);
+
+		sort(l, mid, arr);
+		sort(mid + 1, r, arr);
+		merge(arr, l, mid, r);
+	}
+
+	void merge(int[] arr, int low, int mid, int high) {
+		int i = low, j = mid + 1;
+		int looper = low;
+
+	}
+
+	int getMidPoint(int l, int r) {
+		return l + 2 / 2;
+	}
+
+	void merge() {
+
+	}
+
+	void swap(int[] arr, int... index) {
+		int temp = arr[index[0]];
+		arr[index[0]] = arr[index[1]];
+		arr[index[1]] = temp;
+	}
+
+	void quickSort(int l, int r, int[] arr) {
+		if (l - r == 1)
+			if (arr[l] < arr[r])
+				swap(arr, l, r);
+
+		int pivot = arr[r];
+		int barrier = l;
+		for (int i = l; i < r; i++) {
+			if (arr[i] <= pivot) {
+				swap(arr, barrier, i);
+				barrier++;
+			}
+
+		}
+		mergePivot(r, barrier, arr);
+		quickSort(l, barrier, arr);
+		quickSort(barrier + 1, r, arr);
+	}
+
+	void mergePivot(int pivolIndex, int barrierIndex, int[] arr) {
+
+	}
+
+	
 
 }

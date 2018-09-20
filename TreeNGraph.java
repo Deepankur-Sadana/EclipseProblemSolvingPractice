@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.*;
 
 public class TreeNGraph {
@@ -25,6 +24,8 @@ public class TreeNGraph {
 		int value;
 		public Node[] children;
 		Node left, right;
+		
+		Node vr;
 
 		Node(String name, Node[] children) {
 			this.name = name;
@@ -373,10 +374,34 @@ public class TreeNGraph {
 
 	}
 
+	void connectNodeAtSameLevel(Node root, HashMap<Integer, Stack<Node>> levelMap) {
+		IOT(root,0,levelMap);
+		for(Map.Entry<Integer, Stack<Node>> entry:levelMap.entrySet()) {
+			Node pre = null;
+			while(!entry.getValue().isEmpty()) {
+				Node pop = entry.getValue().pop();
+				pop.vr=pre;
+				pre=pop;
+			}
+		}
+		
+	}
 
+	void IOT(Node root, int level, HashMap<Integer, HashSet<Node>> levelMap) {
+		if (root == null)
+			return;
+		checkAndInitializeMap(level, levelMap);
+		IOT(root.left, level + 1, levelMap);
+		levelMap.get(level).add(root);
+		IOT(root.right, level + 1, levelMap);
 
+	}
 
-
+	void checkAndInitializeMap(int level, HashMap<Integer, HashSet<Node>> levelMap) {
+		if (levelMap.get(level) == null)
+			levelMap.put(level, new HashSet<Node>());
+	}
+	
 
 
 
