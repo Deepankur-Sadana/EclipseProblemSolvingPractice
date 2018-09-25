@@ -15,8 +15,15 @@ public class SortingSeaching {
 		// s.builArray(10, 5);
 		// s.insertParanthesis();
 		// s.find("ball");
-		s.createMatrix();
+		s.print();
 
+	}
+	
+	void print() {
+		char c = '5';
+		int i =  c- 48 ;
+		System.out.println(i);
+		
 	}
 
 	void builArray(int len, int len2) {
@@ -317,6 +324,7 @@ public class SortingSeaching {
 		int[] arr = new int[] { 15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14 };
 		int element = 16;
 
+		
 		int rotationIndex = findRotatedIndex(arr, 0, arr.length - 1, 0, 0);
 
 		System.out.println("rotaion " + rotationIndex);

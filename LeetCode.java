@@ -2,15 +2,6 @@ import java.util.*;
 
 public class LeetCode {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		LeetCode l = new LeetCode();
-//		int c = l.maxCoins(new int[] {3,1,5,8});
-//		System.out.println("max "+c);
-		l.swim();
-
-	}
 
 	public int maxCoins(int[] nums) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -128,8 +119,49 @@ public class LeetCode {
 			this.r = r;
 			this.c = c;
 		}
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		LeetCode l = new LeetCode();
+//		int c = l.maxCoins(new int[] {3,1,5,8});
+//		System.out.println("max "+c);
+		
+		l.isMatch("adceb","*a*b");
+
 	}
 
+    public boolean isMatch(String s, String p) {
+        boolean[][] arr = new boolean[s.length()+1][p.length()+1];
+        arr[0][0] = true;
+        for(int i=1; i< arr[0].length;i++) {
+        	 
+        	if(p.charAt(i-1) == '*'){
+                arr[0][i]= arr[0][i-1];
+                
+            }
+        }
+        
+        for(int i= 1 ; i < arr.length;i++){
+            for(int j = 1 ; j < arr[0].length ; j ++){   
+                char target = s.charAt(i-1);
+                char pattern = p.charAt(j-1);
+                if(target == pattern || pattern == '?'){
+                    arr[i][j]=arr[i-1][j-1];
+                }else if(pattern == '*'){
+                    arr[i][j]= arr[i-1][j]||arr[i][j-1] ;
+                    
+                }
+            }
+        }
+        Utils.print(arr);
+        return arr[s.length()][p.length()];
+    }
+    
+    
 }
 
 

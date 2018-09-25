@@ -115,22 +115,6 @@ public class RandomQuestions {
 		}
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		RandomQuestions r = new RandomQuestions();
-
-//		Result s = r.maxSum(new int[][] {
-//            {1, 2, 3},
-//            {-3, -2 ,-1},
-//            {1,2, 3}
-//            });
-//		System.out.println(s.maxSum);
-//		r.Findsubarraywithgivensum();
-//		fibonacci(80);
-		mem();
-
-	}
-
 	public void Findsubarraywithgivensum() {
 
 		int arr[] = { 15, 2, 4, 8, 9, 5, 10, 23 };
@@ -304,6 +288,116 @@ public class RandomQuestions {
 
 	}
 
-	
+//	Remove Alternate Duplicate characters from a char array you have to do it in Place.Like keeping only the odd occurences of each character.
+//	Example: Input: “you got beautiful eyes”
+//	Output: ”you gtbeaiful es”
+//	Allowed Time Complexity was O(n) and Space Complexity was O(1)
 
+	public static void main(String[] args) {
+		RandomQuestions r = new RandomQuestions();
+		r.removeDups("you got beautiful eyes");
+	}
+
+	boolean canPrint(HashMap<Character, Boolean> map, char c) {
+		Boolean b = map.get(c);
+		if (b == null)
+			b = false;
+		map.put(c, !b);
+		return !b;
+
+	}
+
+	void removeDups(String str) {
+		char[] arr = str.toCharArray();
+		HashMap<Character, Boolean> map = new HashMap<>();
+		str.charAt(index)
+
+		int slowRunner = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (canPrint(map, arr[i])) {
+				arr[slowRunner] = arr[i];
+				++slowRunner;
+			}
+
+		}
+		System.out.println(arr);
+
+		char c = ' ';
+		int  i = Integer.parseInt(String.valueOf(c));
+		System.out.println(i);
+	}
+
+	public int numRabbits(int[] answers) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for (int i : answers) {
+			Integer count = map.get(i);
+			if (count == null)
+				count = 0;
+			map.put(i, ++count);
+		}
+
+		int sum = 0;
+		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+			if (entry.getValue() - entry.getKey() == 1)
+				sum += entry.getValue();
+			else
+				sum += entry.getKey() + 1;
+		}
+		SortedMap<String, String> fileExtensions = new TreeMap<>();
+
+		return sum;
+
+	}
+
+
+	
+	class Solution {
+		public String frequencySort(String s) {
+
+			for (int i = 0; i < s.length(); i++) {
+				char c = s.charAt(i);
+				String val = map.get(c);
+				if (val == null)
+					val = "";
+				val += c;
+				
+				map.put(c, val);
+			}
+			
+			Map sortedMap = sortByValues(map);
+			Set set = sortedMap.entrySet();
+			// Get an iterator
+			Iterator it = set.iterator();
+			String b = "";
+			// Display elements
+			while (it.hasNext()) {
+				Map.Entry me = (Map.Entry) it.next();
+				char c = (Character)me.getKey();
+                String count = (String)me.getValue();
+					b += c;
+				
+			}
+            return b;
+		}
+
+		public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
+			Comparator<K> valueComparator = new Comparator<K>() {
+				public int compare(K k1, K k2) {
+//					int compare = map.get(k1).compareTo(map.get(k2));
+					int compare = ((String)map.get(k1)).length() - ((String)map.get(k2)).length();
+					if (compare == 0)
+						return 1;
+					else
+						return -compare;
+				}
+			};
+
+			Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+			sortedByValues.putAll(map);
+			return sortedByValues;
+		}
+
+		TreeMap<Character, String> map = new TreeMap<Character, String>();
+
+	}
 }

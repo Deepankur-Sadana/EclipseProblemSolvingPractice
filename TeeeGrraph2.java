@@ -11,8 +11,6 @@ public class TeeeGrraph2 {
 		}
 	}
 
-
-
 	void printLeftView(Node root, int level, HashMap<Integer, Boolean> map) {
 		if (root == null) {
 			return;
@@ -49,8 +47,6 @@ public class TeeeGrraph2 {
 	 * 
 	 * @param args
 	 */
-
-
 
 	void printBottomView() {
 		Node root = buildBottomViewTree();
@@ -94,12 +90,13 @@ public class TeeeGrraph2 {
 	Node findData(Node root, int n, int m) {
 		if (root == null)
 			return null;
-		
+
 		if (root.data == n || root.data == m) {
 
 			if (findData(root.left, root.data == n ? m : n) != null)
 				return root;
-			else return root;
+			else
+				return root;
 
 		}
 		return null;
@@ -111,7 +108,7 @@ public class TeeeGrraph2 {
 		if (root.data == n) {
 			return root;
 		}
-		
+
 		Node node = findData(root.left, n);
 		if (node != null)
 			return node;
@@ -124,76 +121,89 @@ public class TeeeGrraph2 {
 		return null;
 	}
 
-	 int diamterOfATree(Node root,int height) {
-		 
-		 if(root == null) return 0;
-		 
-		 int l = diamterOfATree(root.left,height+1);
-		 int r = diamterOfATree(root.right,height+1);
-		 
-		 return Math.max(l+r+1, height);
-	    	
-	    }
-	 
-	 int heightOfATree(Node root, int h) {
-		 if(root == null)return 0;
-		 
-		 int l = heightOfATree(root.left,h);
-		 
-	 }
-		static Node makeTree() {
-			Node n4 = new Node(4);
+	int diamterOfATree(Node root, int height) {
 
-			n4.left = new Node(5);
-			n4.right = new Node(2);
-			n4.right.left = new Node(3);
-			n4.right.right = new Node(1);
+		if (root == null)
+			return 0;
 
-			n4.right.left.left = new Node(6);
-			n4.right.left.right = new Node(7);
-			n4.right.left.right.right = new Node(8);
-			n4.right.left.right.left = new Node(12);
+		int l = diamterOfATree(root.left, height + 1);
+		int r = diamterOfATree(root.right, height + 1);
 
-			return n4;
+		return Math.max(l + r + 1, height);
 
-		}
-	 
-		public static void main(String[] args) {
-			TeeeGrraph2 t = new TeeeGrraph2();
+	}
 
-			Node root = t.makeTreeNew();
-			t.POT(root);
-		}
-		   public static Node makeTreeNew()
-		    {
-		        Node root = new Node(1);
-		        
-		        root.left = new Node(2);
-		        root.right = new Node(3);
-		        root.left.left = new Node(4);
-		        root.left.right = new Node(5);
-		 
-		        return root;
+	int heightOfATree(Node root, int h) {
+		if (root == null)
+			return 0;
 
-		    }
+		int l = heightOfATree(root.left, h);
+
+	}
+
+	static Node makeTree() {
+		Node n4 = new Node(4);
+
+		n4.left = new Node(5);
+		n4.right = new Node(2);
+		n4.right.left = new Node(3);
+		n4.right.right = new Node(1);
+
+		n4.right.left.left = new Node(6);
+		n4.right.left.right = new Node(7);
+		n4.right.left.right.right = new Node(8);
+		n4.right.left.right.left = new Node(12);
+
+		return n4;
+
+	}
+
+	public static void main(String[] args) {
+		TeeeGrraph2 t = new TeeeGrraph2();
+
+		Node root = t.makeTreeNew();
+		t.POT(root);
+	}
+
+	public static Node makeTreeNew() {
+		Node root = new Node(1);
+
+		root.left = new Node(2);
+		root.right = new Node(3);
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+
+		return root;
+
+	}
+
+	void IOT(Node root) {
+		if (root == null)
+			return;
+		IOT(root.left);
+		System.out.println(root.data);
+		IOT(root.right);
+
+	}
+
+	void POT(Node root) {
+		if (root == null)
+			return;
+
+		POT(root.left);
+		POT(root.right);
+		System.out.println(root.data);
+
+	}
+
+	void mirror(Node root) {
+		if (root == null)
+			return;
 		
-		void IOT(Node root) {
-			if(root == null) return;
-			IOT(root.left);
-			System.out.println(root.data);
-			IOT(root.right);
-			
-		}
-		
-		void POT(Node root) {
-			if(root == null) return;
-			
-			POT(root.left);
-			POT(root.right);
-			System.out.println(root.data);
-			Collections.sort(list);
-			
-		}
-	 
-	 
+		Node temp = root.left;
+		root.left = root.right;
+		root.right = temp;
+		mirror(root.left);
+		mirror(root.right);
+	}
 }
