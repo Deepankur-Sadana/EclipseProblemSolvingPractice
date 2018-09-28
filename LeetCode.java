@@ -149,8 +149,6 @@ public class LeetCode {
 		return arr[s.length()][p.length()];
 	}
 
-
-
 	public static class ListNode {
 		int val;
 		ListNode next;
@@ -160,103 +158,126 @@ public class LeetCode {
 		}
 	}
 
+	ListNode node, head;
+
+	public ListNode mergeKLists(ListNode[] lists) {
+		int i = 0;
+		ListNode poll;
+		while (1 == 1) {
+			++i;
+			poll = pollSmallest(lists);
+			if (poll == null)
+				return head;
+			;
+
+			System.out.println(poll.val);
+//    printList(lists);
+			if (head == null) {
+				head = poll;
+				node = poll;
+			} else
+				node.next = poll;
+
+			if (node != null)
+				node = node.next;
+		}
+//        return head;
+	}
+
+	ListNode pollSmallest(ListNode[] lists) {
+		int small = -1;
+
+		for (int i = 0; i < lists.length; i++) {
+			if (lists[i] == null)
+				continue;
+
+			if (small == -1) {
+				small = i;
+				continue;
+			}
+
+			if (lists[small].val > lists[i].val)
+				small = i;
+		}
+
+		if (small == -1)
+			return null;
+
+		ListNode temp = lists[small];
+		lists[small] = lists[small].next;
+		temp.next = null;
+		return temp;
+
+	}
+
+	void printList(ListNode[] lists) {
+		ListNode n;
+		for (int i = 0; i < lists.length; i++) {
+			if (lists[i] == null)
+				continue;
+			n = lists[i];
+			String b = "";
+			while (n != null) {
+				b += n.val;
+				b += " ";
+				n = n.next;
+
+			}
+			System.out.println(b);
+		}
+	}
+
+	public static void main(String[] args) {
+
+		LeetCode l = new LeetCode();
+		int arr[] = new int[] {};
+		l.generateMatrix(4);
+	}
 
 
 
-    public static void main(String[] args) {
-        ListNode node1 = new ListNode(1);
-        ListNode node4 = new ListNode(4);
-        ListNode node5 = new ListNode(5);
+	public class CustomComparator implements Comparator<String> {
+		@Override
+		public int compare(String o1, String o2) {
+			return o1.compareTo(o2);
+		}
+	}
 
-        ListNode node1_1 = new ListNode(1);
-        ListNode node3 = new ListNode(3);
-        ListNode node4_1 = new ListNode(4);
-
-        ListNode node2 = new ListNode(2);
-        ListNode node6 = new ListNode(6);
-
-        node1.next = node4;
-        node4.next = node5;
-
-        node1_1.next = node3;
-        node3.next = node4_1;
-
-        node2.next = node6;
-
-        System.out.println(node1);
-        System.out.println(node1_1);
-        System.out.println(node2);
-
-//        ListNode node = new MergeKSortedLists().mergeKLists(new ListNode[]{node1, node1_1});
-    	LeetCode l = new LeetCode();
-        l.mergeKLists(new ListNode[] {node1,node1_1,node2});
+    public int[][] generateMatrix(int n) {
+        int[][] arr= new int[n][n];
+        int rS = 0,  rE = n-1,  cS =0,  cE = n-1;
+        
+        int curr = 1;
+        while(rS <= rE || cS <= cE){
+            curr = fill(rS,rE,cS,cE,arr,curr);
+            rS++;rE--;cS++;cE--;
+        }
+        Utils.pint(arr);
+        return arr;
     }
     
-    ListNode node, head;
-    public ListNode mergeKLists(ListNode[] lists) {
-       int i=0;
-        ListNode poll;
-        while(1==1){
-            ++i;
-           poll = pollSmallest(lists);
-            if(poll == null) return head;;
-            
-            System.out.println(poll.val);
-//    printList(lists);
-            if(head == null) {
-                head = poll;
-                node = poll;   
-            }
-            else node.next = poll;
-            
-            if(node != null)
-                node = node.next;
-        }
-//        return head;
-    }
-    ListNode pollSmallest(ListNode[] lists) {
-        int small = -1;
-        
-        for(int i= 0 ; i < lists.length; i++){
-            if(lists[i] == null) 
-                continue;
-            
-            if(small == -1 ){
-                small = i;
-                continue;
-            }
-            
-            if(lists[small].val > lists[i].val)    
-                small = i;
-        }
-        
-        if(small == -1) return null;
-        
-        ListNode temp = lists[small] ;
-        lists[small] = lists[small].next;
-        temp.next=null;
-        return temp;
-        
-    }
-    void printList(ListNode[] lists){
-        ListNode n;
-         for(int i= 0 ; i < lists.length; i++){
-             if(lists[i]==null)continue;
-              n = lists[i];
-             String  b ="";
-             while(n != null){
-                 b+=n.val;
-                 b+=" ";
-                 n=n.next;
-                 
-             }
-             System.out.println(b);
-         }
-    }
-}
+	int fill(int rS, int rE, int cS, int cE, int arr[][],int begin) {
 
-	
-	
-	
-	
-	
+		for (int i = cS; i <= cE; i++) {
+            arr[rS][i] = begin++;
+		}
+
+		for (int i = rS+1; i <= rE; i++) {
+            arr[i][cE] = begin ++;
+
+		}
+
+		for (int i = cE- 1; i >= cS; i--) {
+			System.out.println("r "+rE +" c "+i);
+            arr[rE][i] = begin ++;
+
+		}
+
+		for (int i = rE-1; i > rS; i--) {
+            arr[i][cS] = begin ++;
+
+		}
+        return begin;
+
+	}
+}
