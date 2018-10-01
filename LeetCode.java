@@ -227,15 +227,6 @@ public class LeetCode {
 		}
 	}
 
-	public static void main(String[] args) {
-
-		LeetCode l = new LeetCode();
-		int arr[] = new int[] {};
-		l.generateMatrix(4);
-	}
-
-
-
 	public class CustomComparator implements Comparator<String> {
 		@Override
 		public int compare(String o1, String o2) {
@@ -243,41 +234,75 @@ public class LeetCode {
 		}
 	}
 
-    public int[][] generateMatrix(int n) {
-        int[][] arr= new int[n][n];
-        int rS = 0,  rE = n-1,  cS =0,  cE = n-1;
-        
-        int curr = 1;
-        while(rS <= rE || cS <= cE){
-            curr = fill(rS,rE,cS,cE,arr,curr);
-            rS++;rE--;cS++;cE--;
-        }
-        Utils.pint(arr);
-        return arr;
-    }
-    
-	int fill(int rS, int rE, int cS, int cE, int arr[][],int begin) {
+	public int[][] generateMatrix(int n) {
+		int[][] arr = new int[n][n];
+		int rS = 0, rE = n - 1, cS = 0, cE = n - 1;
+
+		int curr = 1;
+		while (rS <= rE || cS <= cE) {
+			curr = fill(rS, rE, cS, cE, arr, curr);
+			rS++;
+			rE--;
+			cS++;
+			cE--;
+		}
+		Utils.pint(arr);
+		return arr;
+	}
+
+	int fill(int rS, int rE, int cS, int cE, int arr[][], int begin) {
 
 		for (int i = cS; i <= cE; i++) {
-            arr[rS][i] = begin++;
+			arr[rS][i] = begin++;
 		}
 
-		for (int i = rS+1; i <= rE; i++) {
-            arr[i][cE] = begin ++;
-
-		}
-
-		for (int i = cE- 1; i >= cS; i--) {
-			System.out.println("r "+rE +" c "+i);
-            arr[rE][i] = begin ++;
+		for (int i = rS + 1; i <= rE; i++) {
+			arr[i][cE] = begin++;
 
 		}
 
-		for (int i = rE-1; i > rS; i--) {
-            arr[i][cS] = begin ++;
+		for (int i = cE - 1; i >= cS; i--) {
+			System.out.println("r " + rE + " c " + i);
+			arr[rE][i] = begin++;
 
 		}
-        return begin;
+
+		for (int i = rE - 1; i > rS; i--) {
+			arr[i][cS] = begin++;
+
+		}
+		return begin;
 
 	}
+
+	void a() {
+		String time = "23:59";
+		int hour = Integer.parseInt(time.substring(0, 2));
+		Integer.parseInt(time.substring(3, 5));
+	}
+
+	public static void main(String[] args) {
+
+		LeetCode l = new LeetCode();
+		int arr[] = new int[] {};
+		l.generateMatrix(4);
+		System.out.println(reverse("abbac"));
+	}
+
+	static String reverse(String s) {
+		StringBuilder sb = new StringBuilder();
+		if (s.length() == 0)
+			return "";
+		char prev = s.charAt(s.length() - 1);
+		sb.append(prev);
+		for (int i = s.toCharArray().length - 2; i >= 0; i--) {
+			char c = s.charAt(i);
+			if(c == prev)continue;
+				sb.append(c);
+				prev= c;
+
+		}
+		return sb.toString();
+	}
+
 }
